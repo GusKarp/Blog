@@ -10,9 +10,10 @@ $(function () {
     var dataStore = Backendless.Persistence.of(Posts);
     var post = new Posts({title: "My First Blog Post", content:"My first blog post content", email:"email@email.com"});
     dataStore.save(post);
+    
 });
 
-function Post(args){
+function Posts(args){
     args = args || {};
     this.title = args.title || "";
     this.content = args.context || "";
