@@ -1,4 +1,4 @@
-/* global Backendless, Posts */
+/* global Backendless, Posts, Handlebars */
 
 $(function () {
     var APPLICATION_ID = "291AF3D8-BFD8-D246-FFEC-B57EC2F81200",
@@ -7,10 +7,19 @@ $(function () {
         
     Backendless.initApp(APPLICATION_ID, SECRET_KEY, VERSION);
         
-    var dataStore = Backendless.Persistence.of(Posts);
-    var post = new Posts({title: "My First Blog Post", content:"My first blog post content", authorEmail:"augustus.xbox@yahoo.com"});
-    dataStore.save(post);
+    var postsCollection = Backendless.Persistence.of(Posts).find();
     
+    console.log(postsCollection);
+    
+    var wrapper = {
+        posts: postsCollection.data
+    };
+    
+    var blogScript = $("#blogs-template").html();
+    var blogTemplate = Handlebars.compile(blogScript);
+    var blogHTML = blogTemplate(wrapper);
+    
+    $('.main-container').html(blogHTML);
 });
 
 function Posts(args){
