@@ -1,4 +1,4 @@
-/* global Backendless, Posts, Handlebars, moment, userLoggedIn, gotError */
+/* global Backendless, Posts, Handlebars, moment, userLoggedIn, gotError, addBlogTemplate */
 
 $(function () {
     var APPLICATION_ID = "291AF3D8-BFD8-D246-FFEC-B57EC2F81200",
@@ -20,6 +20,13 @@ $(function () {
             password = data[1].value;
             
         Backendless.UserService.login(email,password, true, new Backendless.Async(userLoggedIn, gotError));
+    });
+    
+    $(document).on('click', '.add-blog', function(){
+        var addBlogScript = $("#add-blog-template").html();
+        var addBlogTemplate = Handlebars.compile(addBlogScript);
+        
+    $('.main-container').html(addBlogTemplate);
     });
 });
 
