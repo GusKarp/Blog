@@ -1,4 +1,4 @@
-/* global Backendless, Posts, Handlebars */
+/* global Backendless, Posts, Handlebars, moment */
 
 $(function () {
     var APPLICATION_ID = "291AF3D8-BFD8-D246-FFEC-B57EC2F81200",
@@ -14,6 +14,10 @@ $(function () {
     var wrapper = {
         posts: postsCollection.data
     };
+    
+    Handlebars.registerHelper('format', function(time) {
+        return moment(time).format("dddd, MMMM do YY")
+    });
     
     var blogScript = $("#blogs-template").html();
     var blogTemplate = Handlebars.compile(blogScript);
