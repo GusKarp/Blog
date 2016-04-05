@@ -1,4 +1,4 @@
-/* global Backendless, Posts, Handlebars, moment */
+/* global Backendless, Posts, Handlebars, moment, userLoggedIn, gotError */
 
 $(function () {
     var APPLICATION_ID = "291AF3D8-BFD8-D246-FFEC-B57EC2F81200",
@@ -11,6 +11,16 @@ $(function () {
     var loginTemplate = Handlebars.compile(loginScript);
     
     $('.main-container').html(loginTemplate);
+    
+    $(document).on('submit', '.form-signin', function(event){
+        event.preventDefault();
+        
+        var data = $(this).serializeArray(),
+            email = data[0].value,
+            password = data[1].value;
+            
+        Backendless.UserService.login(email,password, true, new Backendless.Async(userLoggedIn, gotError));
+    });
 });
 
 function Posts(args){
