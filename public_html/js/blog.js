@@ -16,7 +16,7 @@ $(function () {
     };
     
     Handlebars.registerHelper('format', function(time) {
-        return moment(time).format("dddd, MMMM do YY")
+        return moment(time).format("dddd, MMMM do YYYY")
     });
     
     var blogScript = $("#blogs-template").html();
