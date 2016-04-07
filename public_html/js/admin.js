@@ -6,10 +6,14 @@ $(function () {
         VERSION = "v1";
         
     Backendless.initApp(APPLICATION_ID, SECRET_KEY, VERSION);
-    
-    var loginScript = $("#login-template").html();
-    var loginTemplate = Handlebars.compile(loginScript);
-    
+    if(Backendless.UserService,isValidLogin()){
+        userLoggedIn(Backendless.LocalCage.get("current-user-id"));
+        
+    }
+    else{
+        var loginScript = $("#login-template").html();
+        var loginTemplate = Handlebars.compile(loginScript);
+    }
     $('.main-container').html(loginTemplate);
     
     $(document).on('submit', '.form-signin', function(event){
