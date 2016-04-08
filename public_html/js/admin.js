@@ -1,4 +1,4 @@
-/* global Backendless, Posts, Handlebars, moment, userLoggedIn, gotError, addBlogTemplate */
+/* global Backendless, Posts, Handlebars, moment, userLoggedIn, gotError, addBlogTemplate, userLoggedOut */
 
 $(function () {
     var APPLICATION_ID = "291AF3D8-BFD8-D246-FFEC-B57EC2F81200",
@@ -13,8 +13,8 @@ $(function () {
     else{
         var loginScript = $("#login-template").html();
         var loginTemplate = Handlebars.compile(loginScript);
+        $('.main-container').html(loginTemplate);
     }
-    $('.main-container').html(loginTemplate);
     
     $(document).on('submit', '.form-signin', function(event){
         event.preventDefault();
@@ -52,6 +52,14 @@ $(function () {
         this.title.value = "";
         this.content.value = "";
     });
+    
+    $(document).on('click', '.logout', function(){
+        Backendless.UserService.logout(new Backendless.Async(userLoggedOut, gotError));
+        
+        var loginScript = $("#login-template").html();
+        var loginTemplate = Handlebars.compile(loginScript);
+        $('.main-container').html(loginTemplate);
+    });
 });
 
 function Posts(args){
@@ -66,7 +74,8 @@ function userLoggedIn(user) {
     var userData;
     if (typeof user === "string"){
         userData = Backendless.Data.of(Backendless.User).findById(user);
-    } else{
+    } 
+    else{
         userData = user;
     }
     var welcomeScript = $('#welcome-template').html();
@@ -75,9 +84,12 @@ function userLoggedIn(user) {
     
     $('.main-container').html(welcomeHTML);
 }
+function userLoggedOut(){
+    console.log("Succesfully Logged Out");
+}
 
 function gotError(error) {
     console.log("Error message - " + error.message);
-    console.log("Error coode - " + error.code);
+    console.log("Error code - " + error.code);
 }
 
