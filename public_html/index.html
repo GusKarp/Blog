@@ -15,13 +15,32 @@
     <body>
         <header>
             <nav>
-                <div class="nav-wrapper">
+                <div class="nav-wrapper teal lighten-2">
                     <a href="#" class="brand-logo">Blog</a>
                     <ul class="right">
                         <li><a href="index.html">Home</a></li>
                         <li><a href="admin.html">Admin</a></li>
                     </ul>
+                    <ul id="slide-out" class="side-nav">
+          
                 </div>
+            </nav>
+            <nav class="teal lighten-1">
+              <ul class="right hide-on-med-and-down teal lighten-1">
+                <li><a href="#!">About Lord Gus</a></li>
+                <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Blog Posts<i class="mdi-navigation-arrow-drop-down right"></i></a></li>
+                  <ul id='dropdown1' class='dropdown-content'>
+                <script id="" type="text/x-handlebars-template">
+          {{#each posts}}
+            <div class="blog-post">
+                <a class="blog-post-title" id={{title}}  href={{title}}>{{title}}</a>
+            </div>
+          {{/each}}
+      </script>
+                </ul>
+              </ul>
+              <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+          
             </nav>
         </header>
         <main>
@@ -36,9 +55,10 @@
                 </div>
             </div>
         </main>
-        <footer class="page-footer">
+        
+        <footer class="page-footer teal lighten-2">
             <div class="container">
-                <p><a href=#>Back to the top</a></p>
+                <p><a href=# class="white-text lighten-2">Back to the top</a></p>
             </div>
             <div class="footer-copyright">
                 <div class="container">
@@ -56,7 +76,7 @@
       
       <script id="blogs-template" type="text/x-handlebars-template">
           {{#each posts}}
-            <div class="blog-post">
+            <div class="blog-post" id={{title}}>
                 <h2 class="blog-post-title">{{title}}</h2>
                 <p class="blog-post-meta">At {{format created}} by {{authorEmail}}</p>
                 <div>{{content}}</div>
