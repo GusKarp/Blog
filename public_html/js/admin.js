@@ -31,9 +31,23 @@ $(function () {
         var addBlogTemplate = Handlebars.compile(addBlogScript);
         
         $('.main-container').html(addBlogTemplate);
+        tinymce.init({ selector:'textarea' });
     });
     $(document).on('submit', '.form-add-blog', function (event) {
         event.preventDefault();
+        
+          var x;
+        x = document.getElementById("title").value;
+        var y;
+        y = document.getElementById("content").value;
+        if(x == ""){
+            Materialize.toast('No Title', 4000)
+            return false;
+        }
+        if(y == ""){
+            Materialize.toast('No Content', 4000)
+            return false;
+        }
         
         var data = $(this).serializeArray(),
             title = data[0].value, 
@@ -89,6 +103,7 @@ function userLoggedOut(){
 }
 
 function gotError(error) {
+    Materialize.toast('Incorrect Login You Idiot', 4000)
     console.log("Error message - " + error.message);
     console.log("Error code - " + error.code);
 }
